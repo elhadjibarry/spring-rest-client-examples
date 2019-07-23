@@ -40,4 +40,13 @@ public class UserController {
         model.addAttribute("users", apiService.getUsers(limit));
         return "userlist";
     }
+
+    @PostMapping("/users-flux")
+    public String formPostFlux(Model model, ServerWebExchange serverWebExchange) {
+
+        model.addAttribute("users", apiService.getUsers(
+                serverWebExchange.getFormData()
+                        .map(data -> new Integer(data.getFirst("limt")))));
+        return "userlist";
+    }
 }
